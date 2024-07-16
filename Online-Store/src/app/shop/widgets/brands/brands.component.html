@@ -1,0 +1,8 @@
+<div class="filter-content">
+  <ul *ngrxLet="brands$ as brands">
+      <li *ngFor="let brand of brands">
+        <mat-checkbox (ngModelChange)="UpdateBrandsFltr($event, brand?.name)" [(ngModel)]="checked[brand?.name]">{{brand?.name}}</mat-checkbox>
+      </li>
+  </ul>
+</div>
+

@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  online-store:
+    container_name: online-store
+    image: online-store
+    build:
+      context: ./online-store
+    volumes:
+      - /usr/src/app/node_modules
+      - ./online-store:/usr/src/app
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    depends_on:
+      - backend
+      - online-store
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - 3000:80
+
+  backend:
+    container_name: backend
+    image: backend
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /usr/src/app
+          ignore: 
+            - node_modules/
+            - package.json
+            - package-lock.json
+            - Dockerfile
+            - db-data.ts
+            - tsconfig.json
+        - action: rebuild
+          path: ./backend/package.json

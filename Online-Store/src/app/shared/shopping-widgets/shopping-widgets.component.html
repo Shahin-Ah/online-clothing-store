@@ -1,0 +1,24 @@
+
+<div class="commerce-buttons" fxLayout="row" fxLayoutAlign="end center"
+ (mouseleave)="closeMenu()">
+
+  <button [disableRipple]="true" mat-button (click)="navigate()" class="flex-row-button mat-button" fxLayoutAlign="space-between center"
+    [matMenuTriggerFor]="menu">
+    <div class="mat-button-wrapper">
+        <div class="" >
+            <mat-icon (mouseenter)="openMenu(shoppingCartItems?.length)"
+                  class="mat-icon-lg mat-icon material-icons"
+                  style="color: black;">local_grocery_store</mat-icon>
+            <span *ngIf="shoppingCartItems?.length > 0" class="cart-count-wrapper">{{shoppingCartItems?.length}}</span>
+          </div>
+    </div>
+  </button>
+  <mat-menu class="spCard-main" #menu="matMenu"  [hasBackdrop]="false" >
+    <div class="spCard-dropdown" (mouseenter)="openMenu(shoppingCartItems?.length)" (mouseleave)="closeMenu()">
+      <div class="card-list-title" fxLayout="row" fxLayoutAlign="center center">
+         <h5><b>Cart is empty</b></h5>
+     </div>
+    </div>
+  </mat-menu>
+</div>
+

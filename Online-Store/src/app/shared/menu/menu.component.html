@@ -1,0 +1,71 @@
+<mat-toolbar-row fxHide fxShow.gt-sm class="container" fxLayout="row"  fxLayout.xs="row" fxLayoutAlign="space-between center">
+  <div class="main-menu" fxLayout="row" fxHide fxShow.gt-sm>
+    <a (click)="login()" mat-button class="mat-button">Login888<mat-icon iconPositionEnd class="caret">arrow_drop_down</mat-icon></a>
+    <a  mat-button [center-mat-menu]="menuTrigger" class="mat-button">Men<mat-icon iconPositionEnd class="caret">arrow_drop_down</mat-icon></a>
+      <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="men">
+         <mat-menu #men="matMenu"  class="app-dropdown mega-menu">
+           <div fxLayout="row wrap">
+              <div fxLayout="column" class="p-1">
+                  <a mat-menu-item routerLink="/"><b>New & Featured</b></a>
+                  <mat-divider></mat-divider>
+                  <a mat-menu-item routerLink="/">New Arrivals</a>
+                  <a mat-menu-item routerLink="/">Best Sellers</a>
+                  <a mat-menu-item routerLink="/">Jordan</a>
+                  <a mat-menu-item routerLink="/">Matching Sets</a>
+                  <a mat-menu-item routerLink="/">Ultimate Sale: Up to 60% Off</a>
+                  <a mat-menu-item routerLink="/">Sale</a>
+              </div>
+              <div fxLayout="column" class="p-1" *ngrxLet="categories$ as categories">
+                <div *ngIf="categories">
+                  <a mat-menu-item [routerLink]="['/home/products/all']"><b>{{categories[0]?.name}}</b></a>
+                  <mat-divider></mat-divider>
+                  <button *ngFor="let category of categories[0]?.subCategory" mat-menu-item>{{category.name}}</button>
+                </div>
+              </div>
+              <div fxLayout="column" class="p-1">
+                <a mat-menu-item routerLink="/"><b>MEN'S ACCESSORIES</b></a>
+                <mat-divider></mat-divider>
+                <a mat-menu-item routerLink="/">Headwear</a>
+                <a mat-menu-item routerLink="/">Bags</a>
+                <a mat-menu-item routerLink="/">Socks</a>
+                <a mat-menu-item routerLink="/">Gloves</a>
+            </div>
+          </div>
+
+      </mat-menu>
+    </div>
+    <a  mat-button [center-mat-menu]="womenMenu" class="mat-button">Women<mat-icon iconPositionEnd class="caret">arrow_drop_down</mat-icon></a>
+    <div #womenMenu="matMenuTrigger" [matMenuTriggerFor]="women">
+      <mat-menu #women="matMenu"  class="app-dropdown mega-menu">
+        <div fxLayout="row wrap">
+          <div fxLayout="column" class="p-1">
+              <a mat-menu-item routerLink="/"><b>New & Featured</b></a>
+              <mat-divider></mat-divider>
+              <a mat-menu-item routerLink="/">New Arrivals</a>
+              <a mat-menu-item routerLink="/">Best Sellers</a>
+              <a mat-menu-item routerLink="/">Jordan</a>
+              <a mat-menu-item routerLink="/">Matching Sets</a>
+              <a mat-menu-item routerLink="/">Ultimate Sale: Up to 60% Off</a>
+              <a mat-menu-item routerLink="/">Sale</a>
+          </div>
+          <div fxLayout="column" class="p-1" *ngrxLet="categories$ as categories">
+            <div *ngIf="categories">
+              <a mat-menu-item routerLink="/"><b>{{categories[1]?.name}}</b></a>
+              <mat-divider></mat-divider>
+              <button *ngFor="let category of categories[1]?.subCategory" mat-menu-item>{{category.name}}</button>
+            </div>
+          </div>
+          <div fxLayout="column" class="p-1">
+            <a mat-menu-item routerLink="/"><b>Women'S ACCESSORIES</b></a>
+            <mat-divider></mat-divider>
+            <a mat-menu-item routerLink="/">Headwear</a>
+            <a mat-menu-item routerLink="/">Bags</a>
+            <a mat-menu-item routerLink="/">Socks</a>
+            <a mat-menu-item routerLink="/">Gloves</a>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+   </div>
+</mat-toolbar-row>
+

@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="checkout sec-padding">
+    <div fxLayout="row wrap">
+      <div class="billing-details pr-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+        <div class="header-title">
+          <h2>Billing Details</h2>
+        </div>
+        <form style="color: black;" [formGroup]="billingForm" fxLayout="row wrap" (ngSubmit)="onSubmit()">
+          <div fxFlex="100" class="mt-20 pr-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>First name (required)</mat-label>
+              <input formControlName="firstName" matInput required>
+              <mat-error *ngIf="firstName.invalid && firstName.touched">
+                <span *ngIf="firstName.errors?.required">First name is required<br></span>
+                <span *ngIf="firstName.errors?.minlength">Minimum length is 30 characters<br></span>
+                <span *ngIf="firstName.errors?.forbiddenName">Name should not include admin</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20 pl-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Last name (required)</mat-label>
+              <input matInput formControlName="lastName" required>
+              <mat-error *ngIf="!billingForm.get('lastName').valid && billingForm.get('lastName').touched">Please enter a valid name</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20" fxFlex.gt-sm="100" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Company name (optional)</mat-label>
+              <input matInput formControlName="company">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20" fxFlex.gt-sm="100" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Address (required)</mat-label>
+              <input matInput formControlName="address" required>
+              <mat-error *ngIf="!billingForm.get('address').valid && billingForm.get('address').touched">Please enter a valid address</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20" fxFlex.gt-sm="100" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Town / city (required)</mat-label>
+              <input matInput formControlName="city" required>
+              <mat-error *ngIf="!billingForm.get('city').valid && billingForm.get('city').touched">Please enter a valid town/city</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20 pr-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>State / country (required)</mat-label>
+              <input matInput formControlName="country" required>
+              <mat-error *ngIf="!billingForm.get('country').valid && billingForm.get('country').touched">Please enter a valid state/country</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20 pl-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Postcode / zip (required)</mat-label>
+              <input matInput formControlName="postalCode" required>
+              <mat-error *ngIf="!billingForm.get('postalCode').valid && billingForm.get('postalCode').touched">Please enter a valid postcode/zip</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20 pr-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Email Address (required)</mat-label>
+              <input matInput formControlName="email" required>
+              <mat-error *ngIf="!billingForm.get('email').valid && billingForm.get('email').touched">Please enter a valid email address</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="100" class="mt-20 pl-5" fxFlex.gt-md="50" fxFlex.md="50" ngClass.sm="mt-10" ngClass.xs="mt-10">
+            <mat-form-field class="w-100">
+              <mat-label>Phone (required)</mat-label>
+              <input matInput formControlName="phone" required>
+              <mat-error *ngIf="!billingForm.get('phone').valid && billingForm.get('phone').touched">Please enter a valid phone</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="add-info">
+            <h3>Additional information</h3>
+          </div>
+          <div  fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <mat-label>Order notes (optional)</mat-label>
+                <textarea matInput rows="4" formControlName="content"></textarea>
+              </mat-form-field>
+          </div>
+          <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+              <button class="btn-project" [disabled]="!billingForm.valid" mat-raised-button color="accent" type="submit">Submit Review</button>
+          </div>
+        </form>
+      </div>
+      <div class="mainOrder-wrapper pl-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+        <div class="main-order">
+          <div class="order-box">
+            <div class="title-box">
+              <div>Product <span class="tl-amount"> Total</span></div>
+            </div>
+            <ul class="price-list" *ngIf='($shoppingCartItems | async)?.length > 0 && ($shoppingCartItems | async) as cartItems; else noItems;'>
+              <li *ngFor="let item of cartItems">
+                {{ item.name }} × {{ item.quantity }}
+               <span>
+                {{ item.price * item.quantity | currency:productService?.currency:'symbol' }}
+               </span>
+             </li>
+            </ul>
+            <ng-template #noItems>
+              <ul class="quantity">
+                <li class="empty-checkout"> There are no products in cart </li>
+              </ul>
+            </ng-template>
+            <ul class="total-amount">
+              <li>
+                Subtotal <span class="amount">{{ getTotal() | async | currency:productService?.currency:'symbol'}}</span>
+              </li>
+              <li>
+                Shipping
+               <div class="shipping">
+                  <div class="shopping-option">
+                    <mat-radio-group fxLayout="column" [(ngModel)]="selectedPaymentMethod">
+                      <mat-radio-button *ngFor="let payment of payments" [value]="payment">{{payment}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+               </div>
+              </li>
+            </ul>
+            <ul class="total">
+              <li>Total <span class="count">{{ getTotal() | async | currency:productService?.currency:'symbol'}}</span></li>
+            </ul>
+            <div class="paymentFinal">
+              <mat-radio-group fxLayout="column" [(ngModel)]="selectedShippingMethod">
+                <mat-radio-button  *ngFor="let payment of paymantWay" [value]="payment">{{payment}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="order">
+              <button class="btn-project" mat-raised-button color="accent" type="submit" (click)="placeOrder()">PLACE ORDER</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

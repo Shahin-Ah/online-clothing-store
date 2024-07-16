@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "lib": ["es2020"],
+    "esModuleInterop": true,
+    "target": "ES6",
+    "moduleResolution": "NodeNext"
+
+  }
+}

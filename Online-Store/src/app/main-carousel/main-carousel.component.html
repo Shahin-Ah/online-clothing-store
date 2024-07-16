@@ -1,0 +1,16 @@
+<swiper [loop]="true" [allowTouchMove]="false"
+[autoplay]="{ delay: 3000, disableOnInteraction: false }"
+ [pagination]="{clickable: true}" [navigation]="false" class="main-slider">
+  <ng-template swiperSlide *ngFor="let slide of slides">
+    <div [ngStyle]="{'background-image': 'url(' + slide.image + ')'}" class="slide-item swiper-lazy">
+      <div class="container sl-wrap">
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        <div fxLayout="column" fxLayoutAlign="center left" class="content">
+          <h1>{{slide.title}}</h1>
+          <h3>{{slide.subtitle}}</h3>
+          <button mat-raised-button color="primary">Shop now</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</swiper>

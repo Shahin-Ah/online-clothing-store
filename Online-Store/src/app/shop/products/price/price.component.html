@@ -1,0 +1,12 @@
+<div class="price-slider">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
+      <span>From: <b>${{priceFrom}}</b></span>
+      <span>To: <b>${{priceTo}}</b></span>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
+      <mat-slider color="primary" [min]="min" [max]="max">
+        <input matSliderStartThumb (change)="priceFilter()" [(ngModel)]="priceFrom">
+        <input matSliderEndThumb (change)="priceFilter()" [(ngModel)]="priceTo">
+      </mat-slider>
+  </div>
+</div>

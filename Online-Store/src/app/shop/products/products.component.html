@@ -1,0 +1,98 @@
+<div class="left-sidebar-wrapper sec-padding">
+  <div class="container">
+    <div class="sidebar-wrapper" fxLayout='row' fxLayout.lt-md="column" >
+        <div fxFlex="25" fxFlex.lt-sm="100" class="filter-sidenav" perfectScrollbar>
+            <div class="toggles-wrapper" fxLayout="column" fxLayout.lt-md="column">
+                <div class="toggles" fxFlex.lt-md="100">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <span>Categories</span>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                      <app-categories (AddCtg)="updateCtgQry($event)" [checked]="checkedCategories" [ctgParam]= "routeParam" [reset]="resetFilter"></app-categories>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                  <span>Brands</span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <div class="brands">                              <app-brands (brandsFilter)="updateBrandsFilters($event)" [checked]="checkedBrands" [reset]="resetFilter"></app-brands>
+                            </div>
+                          </mat-expansion-panel>
+                          <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <span>Price</span>
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
+
+                              <app-price (priceFilters)="updatePriceFilters($event)" [priceFrom]="priceFrom" [priceTo]="priceTo" [reset]="resetFilter"></app-price>
+                            </mat-expansion-panel>
+                      </mat-accordion>
+                      <div class="btn-wrap" fxLayout="row" fxLayoutAlign="center center">
+                        <a (click)="applyFilter()">APPLY FILTER</a>
+                    </div>
+                </div>
+                    <div class="popular-products" fxFlex.lt-md="100">
+                      <app-popular-products></app-popular-products>
+                    </div>
+            </div>
+
+            </div>
+          <div fxFlex="75" fxFlex.lt-sm="100" class="all-products" ngClass.gt-sm="p-left">
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxHide.lt-md="true" class="filter-row mat-elevation-z1 text-muted">
+                  <div >
+                      <select (change)="onChangeSorting($event.target.value)">
+                          <option value="asc">Sorting items</option>
+                          <option value="asc">Ascending Order</option>
+                          <option value="desc">Descending Order</option>
+                          <option value="a-z">Alphabetically, A-Z</option>
+                          <option value="z-a">Alphabetically, Z-A</option>
+                          <option value="low">Price, low to high</option>
+                          <option value="high">Price, high to low</option>
+                        </select>
+
+                  </div>
+                  <div>
+
+                      <button mat-icon-button (click)="changeViewType('list', 100)">
+                          <mat-icon>view_list</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="changeViewType('list', 33.3)">
+                          <mat-icon>view_module</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="changeViewType('list', 25)">
+                          <mat-icon>view_comfy</mat-icon>
+                      </button>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" class="products-wrapper">
+                    <div *ngFor="let product of allItems | async | orderBy:sortByOrder" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+                       <div class="product-box">
+                          <app-product [isAuthenticatedAndAdmin]="isAuthenticatedAndAdmin$ | async" [product]="product"></app-product>
+                       </div>
+                    </div>
+                </div>
+                <div  fxLayout="row wrap" *ngrxLet="pagination$ as pagination">
+                  <div fxFlex="100">
+                    <mat-paginator #paginator
+                      class="demo-paginator"
+                      (page)="handlePageEvent($event)"
+                      [length]="pagination?.totalItems"
+                      [pageSize]="pagination?.itemsPerPage"
+                      [showFirstLastButtons]="showFirstLastButtons"
+                      [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+                      [hidePageSize]="hidePageSize"
+                      [pageIndex]="pagination?.currentPage"
+                      aria-label="Select page">
+                    </mat-paginator>
+                  </div>
+              </div>
+              </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="cart-wrapper sec-padding">
+    <div fxLayout="column" *ngIf="($shoppingCartItems | async).length === 0; else cart" fxLayoutAlign="space-around center">
+      <mat-chip-listbox >
+        <mat-chip-option color="warn" selected="true">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</mat-chip-option>
+      </mat-chip-listbox>
+      <div>
+        <a mat-raised-button color="primary" class="btn-project mt-20">Continue shopping</a>
+      </div>
+    </div>
+    <ng-template #cart>
+      <mat-card>
+        <div class="mat-table cart-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell">Product</div>
+            <div class="mat-header-cell">Name</div>
+            <div class="mat-header-cell">Size</div>
+            <div class="mat-header-cell">Color</div>
+            <div class="mat-header-cell">Quantity</div>
+            <div class="mat-header-cell">Price</div>
+            <div class="mat-header-cell"></div>
+          </div>
+          <div *ngFor="let item of $shoppingCartItems | async let i = index" class="mat-row">
+            <div class="mat-cell mt-5"><img [src]="item?.image?.url"></div>
+            <div class="mat-cell"><a class="product-name">{{item.name}}</a></div>
+            <div class="mat-cell">{{item?.size}}</div>
+            <div class="mat-cell">{{item?.color}}</div>
+            <div class="mat-cell text-muted">
+              <div class="quantity">
+                <form>
+                  <mat-form-field style="max-width: 60px; max-height: 35px;">
+                    <mat-select [value]="item?.stock < item?.quantity? item?.stock: item?.quantity" name="qty">
+                      <mat-option [value]="qty" (click)="selectedQty(qty, item?.id)" *ngFor="let qty of item?.maxQuantityAllowed">{{qty}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </form>
+              </div>
+              <span style="color: red" *ngIf="item?.stock <= 4"><span>Only {{item?.stock}} items left</span></span>
+              <span *ngIf="item?.stock > 4"><span>In Stock</span></span>
+              <span style="color: red" *ngIf="item?.stock === 0"><span>No more available items</span></span>
+            </div>
+            <div class="mat-cell total">{{item?.price * item?.quantity | number : '1.2-2' }}</div>
+            <div class="mat-cell text-center">
+              <div class="p-1">
+                <mat-icon style="color: red;" (click)="removeItem(item?.id)">close</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-cell"><a mat-raised-button class="btn-project"  routerLinkActive="router-link-active">Continue shopping</a></div>
+            <div class="mat-cell"></div>
+            <div class="mat-cell"></div>
+            <div class="mat-cell text-right">
+              <div class="grand-total px-2" fxLayout="column" fxLayoutAlign="center end">
+                <span class="new-price">Grand total: {{getTotal()  | async | currency:productService?.currency:'symbol'}}</span>
+              </div>
+            </div>
+            <div class="mat-cell text-center"><a mat-raised-button  class="btn-project" [routerLink]="['/checkout']"  routerLinkActive="router-link-active" >Proceed To Checkout</a></div>
+          </div>
+        </div>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>

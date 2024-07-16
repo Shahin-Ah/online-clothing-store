@@ -1,0 +1,9 @@
+<div class="filter-content">
+  <ul *ngrxLet="categories$ as categories">
+      <li *ngFor="let ctg of categories?.subCategory; index as i">
+        <mat-checkbox (ngModelChange)="UpdateCtg($event, ctg?.name, i)" [(ngModel)]="checked[ctg?.name]">{{ctg?.name | tShirtFormat}}</mat-checkbox>
+      </li>
+  </ul>
+</div>
+
+

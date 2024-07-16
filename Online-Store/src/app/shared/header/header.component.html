@@ -1,0 +1,30 @@
+<div class="container">
+<div class="menu-container" fxLayout="row" fxLayoutAlign="space-between center" >
+    <app-menu></app-menu>
+    <div class="call-bucket-wrap" fxLayout="row" fxLayout.sm="row" fxLayoutAlign="center center" >
+      <div class="main-menu-wrapper-2" fxLayout="row"  fxLayoutAlign="space-between center" >
+        <mat-toolbar class="top-navbar top menu">
+          <div fxflexoffset.gt-sm="10"  fxFlex class="search-form">
+            <form>
+              <mat-form-field>
+                  <input type="text" [matAutocomplete]="auto" [formControl]="searchTerm" matInput placeholder="Search">
+                  <i class="material-icons search-icons">
+                      search
+                  </i>
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <ng-container *ngIf="filteredOptions$ | async as filteredOptions">
+                      <mat-option *ngFor="let option of filteredOptions" [value]="option" (click)="searchItems(option)">
+                        {{option}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="devider2"></div>
+          <app-shopping-widgets [shoppingCartItems]="shoppingCartItems$ | async"></app-shopping-widgets>
+        </mat-toolbar>
+      </div>
+    </div>
+  </div>
+</div>
